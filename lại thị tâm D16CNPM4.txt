@@ -1,0 +1,1241 @@
+bài 1:
+#include<iostream>
+#include<iomanip>
+using namespace std;
+class SV {
+	private:
+		int masv;
+		string hoten;
+	public:
+	SV(){
+		masv=0;
+		hoten="";
+	}
+	~SV(){
+		masv=0;
+		hoten="";
+	}
+	void Nhap();
+	void Hienthi();
+};
+ 
+void SV::Nhap(){
+	cout<<"Nhap vao ma sinh vien:";cin>>masv;
+	cout<<"Nhap vao ho va ten sinh vien:";cin>>hoten;
+}
+
+void SV::Hienthi(){
+	cout<<"-----------THONG TIN SINH VIEN---------------"<<endl;
+	cout<<"Ma sinh vien: "<<masv<<endl;
+	cout<<"Ten sinh vien:"<<hoten<<endl;
+}
+
+class TMDT: public SV{
+	friend void Sapxep(TMDT [], int );
+		private:
+			float diem;
+		public: 
+		TMDT(){
+				diem=0;
+		}
+		~TMDT(){
+		}
+		void Nhap();
+		void Hienthi();
+		
+	
+};
+
+void TMDT::Nhap(){
+	SV::Nhap();
+	cout<<"Nhap vao diem:";cin>>diem;
+}
+
+void TMDT::Hienthi(){
+	SV::Hienthi();
+	cout<<"Diem:"<<diem<<endl;
+}
+
+void NhapDS (TMDT a[], int &n){
+	cout<<"Nhap n:";cin>>n;
+	for(int i=0;i<n;i++){
+		a[i].Nhap();
+	} 
+}
+
+void HienthiDS(TMDT a[], int n){
+	for(int i=0;i<n;i++){
+		a[i].Hienthi();
+	}
+}
+
+	void Sapxep(TMDT a[], int n) {
+		TMDT temp;
+		for(int i=0;i<n-1;i++) {
+			for(int j=i+1;j<n;j++) {
+				if(a[i].diem<a[j].diem) {
+					temp = a[i];
+					a[i]= a[j];
+					a[j] = temp;
+				}
+			}
+		}
+	}
+int main(){
+	int n;
+	TMDT tmdt[100];
+	SV sv;
+	sv.Nhap();
+	sv.Hienthi();
+	NhapDS(tmdt,n);
+	Sapxep(tmdt,n);
+	HienthiDS(tmdt,n);
+}
+
+bài 2:
+#include<iomanip>
+#include<iostream>
+using namespace std;
+
+class NGUOI{
+	private:
+		int ma;
+		string hoten;
+	public: 
+	NGUOI(){
+		ma=0;
+		hoten="";
+	}
+	~NGUOI(){
+		ma=0;
+		hoten="";
+	}
+	void Nhap();
+	void Hienthi();
+};
+
+void NGUOI::Nhap(){
+	cout<<"Nhap vao ma dinh danh:";cin>>ma;
+	cout<<"Nhap vao ho va ten:";cin>>hoten;
+}
+
+void NGUOI::Hienthi(){
+	cout<<"------------THONG TIN NHAN VIEN---------------"<<endl;
+	cout<<"Ma dinh danh:"<<ma<<endl;
+	cout<<"Ho va ten:"<<hoten<<endl;
+}
+
+class NHANVIEN: public NGUOI{
+	friend Sapxep(NHANVIEN a[], int );
+	private:
+		int namsinh;
+		int hesoluong;
+		int phucap;
+	public:
+		NHANVIEN(){
+			
+		}
+		~NHANVIEN(){
+			
+		}
+	void Nhap();
+	void Hienthi();
+	int Tinhluong();
+};
+
+void NHANVIEN::Nhap(){
+	cout<<"Nhap vao nam sinh:";cin>>namsinh;
+		cout<<"Nhap vao he so luong:";cin>>hesoluong;
+		cout<<"Nhap vao tien phu cap:";cin>>phucap;
+
+}
+int NHANVIEN::Tinhluong(){
+	return hesoluong*1550+phucap;
+}
+
+void NHANVIEN::Hienthi(){
+	cout<<"---------------THONG TIN NHAN VIEN--------------------"<<endl;
+	cout<<"Nam sinh:"<<namsinh<<endl;
+	cout<<"He so luong:"<<hesoluong<<endl;
+	cout<<"Tien phu cap:"<<phucap<<endl;
+	cout<<"Luong cua nhan vien la :"<<Tinhluong()<<endl;
+}
+
+
+void NhapDS(NHANVIEN a[], int &n){
+	cout<<"Nhap vao n:";cin>>n;
+	for(int i=0;i<n;i++){
+		a[i].Nhap();
+	}
+}
+
+void XuatDS(NHANVIEN a[], int n){
+	for(int i=0;i<n;i++){
+		a[i].Hienthi();
+	}
+}
+
+void SapxepDS(NHANVIEN a[], int n){
+	NHANVIEN temp;
+	for(int i=0;i<n-1;i++){
+		for(int j=i+1;j<n;j++)
+		{
+			if(a[i].Tinhluong()>a[j].Tinhluong()){
+				temp=a[i];
+				a[j]=a[i];
+				a[j]=temp;
+			}
+		}
+	}
+}
+int main(){
+	int n;
+	NGUOI ng;
+	ng.	Nhap();
+	ng.	Hienthi();
+	NHANVIEN nv[100];
+	NhapDS(nv,n);
+	SapxepDS(nv, n);
+	XuatDS(nv,n);
+	return 0;
+}
+
+bài 3:
+#include<iomanip>
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+using namespace std;
+
+class PhuongTienGiaoThong{
+	private:
+		string hangsx;
+		string ten;
+		int nam;
+		float vmax;
+	public:
+		PhuongTienGiaoThong(){
+			hangsx="";
+			ten="";
+			nam=0;
+			vmax=0;
+		}
+	void Nhap();
+	void Xuat();
+	string gethangsx();
+
+};
+
+void PhuongTienGiaoThong::Nhap(){
+	cout<<"Nhap hang san xuat:";cin>>hangsx;
+	cout<<"Nhap ten nha san xuat:";cin>>ten;
+	cout<<"Nhap nam san xuat:";cin>>nam;
+	cout<<"van toc toi da:";cin>>vmax;
+}
+
+void PhuongTienGiaoThong::Xuat(){
+	cout<<""<<endl;
+	cout<<"Hang san xuat:"<<hangsx<<endl;
+	cout<<"Ten nha san xuat:"<<ten<<endl;
+	cout<<"Nam san xuat:"<<nam<<endl;
+	cout<<"Van toc toi da:"<<vmax<<endl;
+}
+
+
+class OTo: public PhuongTienGiaoThong{
+	private:
+     	friend void Timkiem();
+		int Socho;
+		string Dongco;
+	public:
+	OTo(){
+		Socho=0;
+		Dongco="";
+	}
+	~OTo(){
+		Socho=0;
+		Dongco="";
+	}
+	void Nhap();
+	void Xuat();
+	friend void Timkiem();
+
+};
+
+void OTo::Nhap(){
+	PhuongTienGiaoThong::Nhap();
+	cout<<"Nhap vao so cho ngoi:";cin>>Socho;fflush(stdin);
+	cout<<"Nhap vao kieu dong co:";getline(cin,Dongco);
+}
+
+void OTo::Xuat(){
+	PhuongTienGiaoThong::Xuat();
+		cout<<"So cho ngoi:"<<Socho<<endl;
+		cout<<"Kieu dong co:"<<Dongco<<endl;
+	
+}
+
+
+ 
+void NhapDS(OTo a[], int &n){
+	cout<<"Nhap n:";cin>>n;
+	for(int i=0;i<n;i++){
+		a[i].Nhap();
+	}
+}
+
+string PhuongTienGiaoThong::gethangsx(){
+	return this->hangsx;
+}
+void Timkiem(OTo a[], int n){
+	int kt=0;
+	for(int i=0;i<n;i++){
+		if(a[i].gethangsx()=="honda"){
+			kt++;
+		}
+}	
+	if(kt==0){
+		cout<<"Khong co hang san xuat honda nao!!!";
+		}
+	
+	else{
+		cout<<"thong tin cac phuong tien cua hang san xuat honda"<<endl;
+		for(int i=0;i<n;i++){
+			a[i].Xuat();
+		}
+	}
+}
+
+void XuatDS(OTo a[],int n){
+	for(int i=0;i<n;i++){
+		a[i].Xuat();
+	}
+}
+
+
+int main(){
+	int n;
+	OTo oto[100];
+	PhuongTienGiaoThong ptgt;
+	ptgt.Nhap();
+	ptgt.Xuat();
+	NhapDS(oto,n);
+	cout<<"Thong tin vua nhap cho n phuong tien!!!"<<endl;
+	XuatDS(oto,n);
+	Timkiem(oto,n);
+}
+
+bài 4:
+#include<stdio.h>
+#include<iomanip>
+#include<iostream>
+#include<string.h>
+using namespace std;
+
+class SV{
+	private:
+		int masv;
+		string hoten;
+	public:
+		SV(){
+		    masv=0;
+		    hoten="";
+		}
+		~SV(){
+			masv=0;
+		    hoten="";
+		}
+	void nhap();
+	void xuat();
+};
+
+void SV::nhap(){
+	cout<<"Nhap thong tin cua ban!!!!!"<<endl;
+	cout<<"Nhap ma sinh vien:";cin>>masv;fflush(stdin);
+	cout<<"Nhap ho va ten:";getline(cin,hoten);
+}
+
+void SV::xuat(){
+	cout<<"Ma sinh vien:"<<masv<<endl;
+	cout<<"Ho va ten:"<<hoten<<endl;
+}
+
+class SVAL:public SV{
+    friend void Sapxep(SVAL [],int);
+	private:		
+		float diem;
+	public:
+		SVAL(){
+			diem=0;
+		}
+		~SVAL(){
+			diem=0;
+		}
+	void nhap();
+	void hienthi();
+};
+
+void SVAL::nhap(){
+	SV::nhap();
+	cout<<"Nhap diem trung binh:";cin>>diem;
+}
+
+void SVAL::hienthi(){
+	SV::xuat();
+	cout<<"Diem trung binh:"<<diem<<endl;
+}
+
+void NhapDS(SVAL a[],int &n){
+	cout<<"Nhap vao n sinh vien:";cin>>n;
+	for(int i=0;i<n;i++){
+		a[i].nhap();
+	}
+}
+
+void Sapxep(SVAL a[],int n){
+	SVAL temp;
+	for(int i=0;i<n-1;i++){
+		for(int j=i+1;j<n;j++){
+				if(a[i].diem<a[j].diem){
+					temp=a[i];
+					a[i]=a[j];
+					a[j]=temp;
+				}
+		}
+	
+	}
+}
+void XuatDS(SVAL a[],int n){
+	for(int i=0;i<n;i++){
+		a[i].xuat();
+	}
+}
+int main(){
+	int n;
+	SVAL sval[100];
+	SV sv;
+	sv.nhap();
+	sv.xuat();
+	NhapDS(sval,n);
+	Sapxep(sval,n);
+	XuatDS(sval,n);
+	
+}
+
+bài 5:
+#include<stdio.h>
+#include<iomanip>
+#include<iostream>
+using namespace std;
+
+class DATE {
+	private:
+		int ngay,thang,nam;
+	public:
+		DATE(){
+			ngay=0;
+			thang=0;
+			nam=0;
+		}
+	void nhap();
+	void xuat();
+};
+
+void DATE::nhap(){
+	cout<<"Nhap vao ngay:";cin>>ngay;
+	cout<<"Nhap vao thang:";cin>>thang;
+	cout<<"Nhap vao nam:";cin>>nam;	
+}
+
+void DATE::xuat(){
+	cout<<"Ngay thang nam:";
+	cout<<""<<ngay;
+	cout<<"/"<<thang;
+	cout<<"/"<<nam<<endl;
+}
+
+class MAYTINH: public DATE{
+	private:
+	int ma;
+	string ten;
+	float gia;
+	float khuyenmai;
+	float giaban;
+	public:
+		MT(){
+			ma=0;
+			ten="";
+			gia=0;
+			khuyenmai=0;
+			giaban=0;
+		}
+	void xuat();
+	void nhap();
+	string getten();
+	float getgia();
+	float getkhuyenmai();
+	void Hienthi();
+	float Tinh();
+};
+
+float MAYTINH::getgia(){
+	return this->gia;
+}
+string MAYTINH::getten(){
+	return this->ten;
+}
+float MAYTINH::getkhuyenmai(){
+	return this->khuyenmai;
+}
+void MAYTINH::nhap(){
+	DATE::nhap();
+	cout<<"Nhap vao ma may tinh:";cin>>ma;fflush(stdin);
+	cout<<"Nhap vao ten may tinh:";getline(cin,ten);fflush(stdin);
+	cout<<"Nhap vao gia niem yet:";cin>>gia;
+	cout<<"Nhap vao ty le khuyen mai:";cin>>khuyenmai;
+}
+float MAYTINH::Tinh(){
+	return giaban=getgia()-getgia()*getkhuyenmai();
+}
+void MAYTINH::xuat(){
+	DATE::xuat();
+	cout<<"Ma may tinh:"<<ma<<endl;
+	cout<<"Ten may tinh:"<<ten<<endl;
+	cout<<"Gia niem yet:"<<gia<<endl;
+	cout<<"Ti le khuyen mai:"<<khuyenmai<<endl;
+	cout<<"Gia ban:"<<Tinh()<<endl;
+}
+
+void NhapDS(MAYTINH a[],int &n){
+	cout<<"Nhap vao n may tinh:";cin>>n;
+
+	for(int i=0;i<n;i++){
+		cout<<"\t\n thong tin may tinh thu:"<<i+1<<endl;
+		a[i].nhap();
+	}
+}
+
+void XuatDS(MAYTINH a[],int n){
+	for(int i=0;i<n;i++){
+		cout<<"\nMay tinh thu:"<<i+1<<endl;
+		a[i].xuat();
+	}
+}
+
+void Hienthi(MAYTINH a[100], int n){
+	int kt=0;
+	for(int i=0;i<n;i++){
+		if(a[i].getten()=="ASUS"){
+			kt++;
+		}
+	}
+	if(kt==0){
+		cout<<"\nKhong co may tinh co ten ASUS"<<endl;
+	}
+	else{
+		for(int i=0;i<n;i++)
+		{
+			a[i].xuat();
+		}
+	}
+}
+int main(){
+	int n;
+	MAYTINH mt[100];
+	DATE dt;
+	cout<<"Nhap thong tin cho cac may tinh "<<endl;
+	dt.nhap();
+	cout<<"\nThong tin may tinh vua nhap"<<endl;
+	dt.xuat();
+	NhapDS(mt,n);
+	cout<<"\nThong tin cac may tinh vua nhap"<<endl;
+	XuatDS(mt,n);
+	Hienthi(mt,n);
+}
+
+bài 6:
+#include<stdio.h>
+#include<iomanip>
+#include<iostream>
+using namespace std;
+
+class SV{
+	private:
+		string masv;
+		string hoten;
+	public:
+		SV(){
+			masv="";
+			hoten="";
+		}
+		~SV(){
+			masv="";
+			hoten="";
+		}
+	
+	void nhap();
+	void xuat();
+};
+
+void SV::nhap(){
+	cout<<"Nhap vao ma sinh vien:";getline(cin,masv);fflush(stdin);
+	cout<<"Nhap vao ho va ten :";getline(cin,hoten);fflush(stdin);
+}
+
+void SV::xuat(){
+	cout<<"Ma sinh vien:"<<masv<<endl;
+	cout<<"Ho va ten sinh vien :"<<hoten<<endl;
+}
+
+class SVSDH: public SV{
+	private:
+		float hocphi;
+	public:
+		SVSDH(){
+			hocphi=0;
+		}
+		~SVSDH(){
+			hocphi=0;
+		}
+		
+		void nhap();
+		void xuat();
+		void Hocphi();
+		float getHocPhi();
+};
+
+float SVSDH::getHocPhi(){
+	return this->hocphi;
+}
+void SVSDH::nhap(){
+	SV::nhap();
+	cout<<"Nhap vao hoc phi sinh vien:";cin>>hocphi;fflush(stdin);
+}
+
+void SVSDH::xuat(){
+	SV::xuat();
+	cout<<"Hoc phi cua sinh vien vua nhap:"<<hocphi;
+}
+
+void NhapDS(SVSDH a[], int &n){
+	cout<<"Nhap vao so luong sinh vien:";cin>>n;fflush(stdin);
+	for(int i=0;i<n;i++){
+		cout<<"\n\t Sinh vien thu"<<i+1<<endl;
+		a[i].nhap();
+	}
+}
+
+void Hocphi(SVSDH a[], int n){
+	for(int i=0;i<n;i++){
+		if(a[i].getHocPhi()>9000){
+			a[i].xuat();
+		}
+	}
+}
+void XuatDS(SVSDH a[],int n){
+	for(int i=0;i<n;i++){
+		a[i].xuat();
+	}
+}
+int main(){
+	int n;
+	SVSDH svsdh[100];
+	SV sv;
+	cout<<"Nhap thong tin cho mot sinh vien"<<endl;
+	sv.nhap();
+	cout<<"\nThong tin mot sinh vien"<<endl;
+	sv.xuat();
+	cout<<"\nThong tin nhieu sinh vien"<<endl;
+	NhapDS(svsdh,n);	
+	XuatDS(svsdh,n);
+	cout<<"Thong tin sinh vien co hoc phi >9000:"<<endl;
+	Hocphi(svsdh,n);
+	
+}
+
+bài 7:
+#include<stdio.h>
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+class SV{
+	private:
+		string masv;
+		string hoten;
+	public:
+		SV(){
+			masv="";
+			hoten="";
+		}
+		~SV(){
+			masv="";
+			hoten="";
+		}
+	void nhap();
+	void xuat();
+};
+
+void SV::nhap(){
+	cout<<"Nhap vao ma sinh vien:";getline(cin,masv);
+	cout<<"Nhap vao ho va ten:";getline(cin,hoten);
+}
+
+void SV::xuat(){
+	cout<<"Ma sinh vien:"<<masv<<endl;
+	cout<<"ho va ten:"<<hoten<<endl;
+}
+
+
+class SVCNPM: public SV{
+	private:
+		float dtb;
+	public:
+		SVCNPM(){
+			dtb=0;
+		}
+		~SVCNPM(){
+			dtb=0;
+		}
+	void nhap();
+	void xuat();
+	void diem();
+	float getdtb();
+};
+
+float SVCNPM::getdtb(){
+	return this->dtb;
+}
+void SVCNPM::nhap(){
+	SV::nhap();
+	cout<<"Nhap vao diem trung binh:";cin>>dtb;fflush(stdin);
+}
+
+void SVCNPM::xuat(){
+	SV::xuat();
+	cout<<"Diem trung binh:"<<dtb<<endl;
+}
+
+void diem(SVCNPM a[],int n){
+	for(int i=0;i<n;i++){
+		if(a[i].getdtb()>=8.5){
+			a[i].xuat();
+		}
+	}
+}
+void NhapDS(SVCNPM a[],int &n){
+	cout<<"Nhap n sinh vien:";cin>>n;fflush(stdin);
+	for(int i=0;i<n;i++){
+		a[i].nhap();
+	}
+}
+
+void XuatDS(SVCNPM a[], int n){
+	for(int i=0;i<n;i++){
+		a[i].xuat();
+	}
+}
+int main(){
+	int n;
+	SVCNPM svcnpm[100];
+	SV sv;
+	cout<<"Nhap du lieu cho 1 sinh vien!!!!"<<endl;
+	sv.nhap();
+	cout<<"\nDu lieu cho 1 sinh vien vua nhap la:"<<endl;
+	sv.xuat();
+	cout<<"\nNhap thong tin cho cac sinh vien!!!"<<endl;
+	NhapDS(svcnpm,n);
+	XuatDS(svcnpm,n);
+	diem(svcnpm,n);
+	
+} 
+
+bài 8:
+#include<iomanip>
+#include<iostream>
+#include<stdio.h>
+#include<string>
+using namespace std;
+class Media{
+	private:
+		float gia;
+		string tengoi;
+	public:
+		Media(){
+			gia=0;
+			tengoi="";
+		}
+		~Media(){
+			gia=0;
+			tengoi="";
+		}
+	void nhap();
+	void xuat();
+	string getTengoi();
+	void timkiem();
+};
+
+string Media::getTengoi(){
+	return this->tengoi;
+}
+void Media::nhap(){
+	cout<<"Nhap vao gia ban:";cin>>gia;fflush(stdin);
+	cout<<"Nhap vao ten goi:";getline(cin,tengoi);
+}
+
+void Media::xuat(){
+	cout<<"Gia ban cua san pham:"<<gia<<endl;
+	cout<<"Ten goi cua san pham:"<<tengoi<<endl;
+}
+
+class Video: public Media{
+	private:
+		float time;
+	public:
+		Video(){
+			time=0;
+		}
+	void nhap();
+	void xuat();
+	float gettime();
+};
+
+float Video::gettime(){
+	return this->time;
+}
+
+void Timkiem(Video a[], int n){
+	for(int i=0;i<n;i++){
+		if(a[i].getTengoi()=="Huong dan lap trinh Python" && a[i].gettime()>10){
+			cout<<"\nthong tin cuon lap trinh Python"<<endl;
+			a[i].xuat();
+		}
+	}
+}
+void Video::nhap(){
+	Media::nhap();
+	cout<<"Nhap vao thoi gian chay:";cin>>time;fflush(stdin);
+}
+
+void Video::xuat(){
+	Media::xuat();
+	cout<<"Thoi gian chay:"<<time<<endl;
+}
+
+void NhapDS(Video a[], int &n){
+	cout<<"Nhap n video can them:";cin>>n;fflush(stdin);
+	for(int i=0;i<n;i++){
+		cout<<"\nDang nhap media thu:"<<i+1<<endl;
+		a[i].nhap();
+	}
+}
+
+void XuatDS(Video a[], int n){
+	for(int i=0;i<n;i++){
+		cout<<"\nThong tin Media thu:"<<i+1<<endl;
+		a[i].xuat();
+	}
+}
+
+int main(){
+	int n;
+	Video vd[100];
+	Media md;
+	md.nhap();
+	cout<<"\nThong tin cua mot sinh vien!!"<<endl;
+	md.xuat();
+	NhapDS(vd,n);
+	XuatDS(vd,n);
+	Timkiem(vd,n);
+}
+
+bài 9:
+#include<iomanip>
+#include<iostream>
+#include<stdio.h>
+#include<string>
+
+using namespace std;
+
+class Media {
+	private:
+		string tengoi;
+		float gia;
+	public:
+		Media(){
+			tengoi="";
+			gia=0;
+		}
+		~Media(){
+			tengoi="";
+			gia=0;
+		}
+	void nhap();
+	void xuat();
+	string gettengoi();
+};
+
+string Media::gettengoi(){
+	return this->tengoi;
+}
+
+
+void Media::nhap(){
+	cout<<"Nhap vao ten goi:";getline(cin,tengoi);
+	cout<<"Nhap vao gia ban:";cin>>gia;fflush(stdin);
+}
+
+void Media::xuat(){
+	cout<<"Ten goi san pham:"<<tengoi<<endl;
+	cout<<"Gia ban san pham:"<<gia<<endl;
+}
+
+class Book: public Media{
+	private:
+		int sotrang;
+		string tacgia;
+	public:
+	Book(){
+		sotrang=0;
+		tacgia="";
+	}
+	
+	void nhap();
+	void xuat();
+	string gettacgia();
+};
+
+
+string Book::gettacgia(){
+	return this->tacgia;
+}
+void Book::nhap(){
+	Media::nhap();
+	cout<<"Nhap vao so trang:";cin>>sotrang;fflush(stdin);
+	cout<<"Nhap vao ten tac gia:";getline(cin,tacgia);
+}
+
+void Book::xuat(){
+	Media::xuat();
+	cout<<"So trang:"<<sotrang<<endl;
+	cout<<"Ten tac gia:"<<tacgia<<endl;
+}
+
+void NhapDS(Book a[], int &n){
+	cout<<"\nNhap vao n video:";cin>>n;fflush(stdin);
+	for(int i=0;i<n;i++){
+		cout<<"\nNhap thong tin video thu:"<<i+1<<endl;
+		a[i].nhap();
+	}
+}
+
+void XuatDS(Book a[], int n){
+	for(int i=0;i<n;i++){
+		cout<<"\nThong tin video thu:"<<i+1<<endl;
+		a[i].xuat();
+	}
+}
+
+void hienthi(Book a[], int n){
+	cout<<"\nThong tin cuon sach lap trinh C++ cua tac gia  nguyen thanh thuy"<<endl;
+	for(int i=0;i<n;i++){
+		if(a[i].gettengoi()=="Lap trinh C++" && a[i].gettacgia()=="Nguyen Thanh Thuy"){
+			a[i].xuat();
+		}
+	}
+}
+int main(){
+	Book bk[100];
+	int n;
+	Media md;
+	cout<<"Nhap vao 1 Media"<<endl;
+	md.nhap();
+	cout<<"\nThong tin cua 1 Media"<<endl;
+	md.xuat();
+	NhapDS(bk,n);
+	XuatDS(bk,n);
+	hienthi(bk,n);
+	
+	
+}
+
+bài 10:
+#include<iostream>
+#include<iomanip>
+using namespace std;
+class NGUOI{
+	private:
+		string hoten;
+		string gioitinh;
+		int nam;
+	public:
+		NGUOI(){
+			hoten="";
+			gioitinh="";
+			nam=0;
+		}
+		~NGUOI(){
+			hoten="";
+			gioitinh="";
+			nam=0;
+		}
+	void Nhap();
+	void Xuat();
+	int getnam();
+	int tinhtuoi();
+	
+	
+};
+
+void NGUOI::Nhap(){
+	cout<<"Nhap vao ho ten:";getline(cin,hoten);fflush(stdin);
+	cout<<"Nhap vao gioi tinh:";getline(cin,gioitinh);fflush(stdin);
+	cout<<"Nhap vao nam sinh:";cin>>nam;
+}
+
+void NGUOI::Xuat(){
+	cout<<"Ho va ten:"<<hoten<<endl;
+	cout<<"Gioi tinh:"<<gioitinh<<endl;
+	cout<<"Nam sinh:"<<nam<<endl;
+	cout<<"Tuoi:"<<tinhtuoi()<<endl;
+}
+int NGUOI::getnam(){
+	return this->nam;
+}
+int NGUOI::tinhtuoi(){
+
+	int tuoi;
+	return tuoi=2020-getnam();
+}
+
+class NHANVIEN: public NGUOI{
+	private:
+		float HSThamnien;
+		float Mucluong;
+		float Anca;
+	public:
+		~NHANVIEN(){
+			HSThamnien=0;
+			Mucluong=0;
+			Anca=0;
+		}
+		void Nhap();
+		void Xuat();
+		
+		float getML();
+		float getHST();
+		float getAnca();
+		float tinhluong();
+};
+
+float NHANVIEN::getHST(){
+	return this->HSThamnien;
+}
+
+float NHANVIEN::getML(){
+	return this->Mucluong;
+}
+float NHANVIEN::getAnca(){
+	return this->Anca;
+}
+
+float NHANVIEN::tinhluong(){
+	float luong;
+	int b=tinhtuoi();
+	float c=getML();
+	float d=getHST();
+	float e=getAnca();
+	if(b>=60){
+		return luong=0.75*c*d;
+	}
+	else{
+		return luong=c*d+e;
+	}
+}
+
+void NHANVIEN::Nhap(){
+	NGUOI::Nhap();
+	cout<<"Nhap va he so tham nien:";cin>>HSThamnien;fflush(stdin);
+	cout<<"Nhap vao muc luong:";cin>>Mucluong;fflush(stdin);
+	cout<<"Nhap vao tien an ca:";cin>>Anca;fflush(stdin);
+}
+void NHANVIEN::Xuat(){
+	NGUOI::Xuat();
+	cout<<"He so tham nien:"<<HSThamnien<<endl;
+	cout<<"Muc luong:"<<Mucluong<<endl;
+	cout<<"Tien an ca:"<<Anca<<endl;
+	cout<<"Luong:"<<tinhluong()<<endl;
+	
+}
+
+void NhapDS(NHANVIEN a[100], int &n){
+	cout<<"Nhap so nhan vien can them:";cin>>n;fflush(stdin);
+	for(int i=0;i<n;i++){
+		cout<<"\nNhan vien thu:"<<i+1<<endl;
+		a[i].Nhap();
+	}
+}
+
+void XuatDS(NHANVIEN a[100], int n){
+	for(int i=0;i<n;i++){
+		cout<<"\nNhan vien thu:"<<i+1<<endl;
+		a[i].Xuat();
+	}
+}
+
+void Kiemtra(NHANVIEN a[100], int n){
+	for(int i=0;i<n;i++){
+	if(a[i].tinhtuoi()>=60){	
+				a[i].Xuat();
+		}
+	
+	}
+}
+int main(){
+	int n;
+	NGUOI ng;
+	NHANVIEN a[100];
+	ng.Nhap();
+	ng.tinhtuoi();
+	ng.Xuat();
+	NhapDS(a,n);
+	cout<<"\nThong tin cac nhan vien vua nhap:"<<endl;
+	XuatDS(a,n);
+	cout<<"\nThong tin cac nhan vien den tuoi nghi huu:"<<endl;
+	Kiemtra(a,n);
+	
+	
+	
+}
+
+câu 15:
+#include<iostream>
+#include<iomanip>
+using namespace std;
+class  SACH{
+	private:
+		string masach;
+		string tensach;
+
+	public:
+		SACH(){
+			masach="";
+			tensach="";
+
+		}
+	void Nhap();
+	void Xuat();
+};
+
+void SACH::Nhap(){
+	cout<<"Nhap vao ma sach:";getline(cin,masach);fflush(stdin);
+	cout<<"Nhap vao ten sach:";getline(cin,tensach);fflush(stdin);
+}
+
+void SACH::Xuat(){
+	cout<<"Ma sach:"<<masach<<endl;
+	cout<<"Ten sach:"<<tensach<<endl;
+}
+
+class Muontra: public SACH{
+	private:
+		string madocgia;
+		int soluong;
+		float phicuoc;
+	public:
+	Muontra(){
+		madocgia="";
+		soluong=0;
+		phicuoc=0;
+		
+	}
+	void Nhap();
+	void Xuat();
+	int getsl();
+	int getphicuoc();
+	float Tinhtien();
+};
+
+
+void hienthi(Muontra a[100], int n){
+	for(int i=0;i<n;i++){
+		if(a[i].getsl()>10){
+		a[i].Xuat();
+	}
+	}
+	
+}
+int Muontra::getsl(){
+	return this->soluong;
+}
+
+int Muontra::getphicuoc(){
+	return this->phicuoc;
+}
+
+float Muontra::Tinhtien(){
+	float tinh;
+	return tinh=getsl()*getphicuoc();
+}
+
+void kiemtra(Muontra a[100], int n){
+	float max=a[0].Tinhtien();
+	for(int i=0;i<n;i++){
+		if(a[i].Tinhtien()>max){
+		    a[i].Tinhtien()==max;
+		}
+	}
+	for(int i=0;i<n;i++){
+		if(a[i].Tinhtien()==max){
+			a[i].Xuat();
+		}
+	}
+	
+}
+
+void Muontra::Nhap(){	
+    SACH::Nhap();
+	cout<<"Nhap vao ma doc gia:";getline(cin,madocgia);fflush(stdin);
+	cout<<"Nhap vao so luong:";cin>>soluong;fflush(stdin);
+	cout<<"Nhap vao phi cuoc muon tra:";cin>>phicuoc;fflush(stdin);
+}
+
+void Muontra::Xuat(){
+	cout<<"Ma doc gia:"<<madocgia<<endl;
+	cout<<"So luong:"<<soluong<<endl;
+	cout<<"Phi cuoc:"<<phicuoc<<endl;
+	cout<<"So tien phai tra:"<<Tinhtien()<<endl;
+}  
+
+void NhapDS(Muontra a[100], int &n){
+	cout<<"Nhap vao so cuon sach can them:";cin>>n;fflush(stdin);
+	for(int i=0;i<n;i++){
+		cout<<"\nCuon sach thu:"<<i+1<<endl;
+		a[i].Nhap();
+	}
+}
+
+void XuatDS(Muontra a[100], int n){
+	for(int i=0;i<n;i++){
+		cout<<"\nCuon sach thu:"<<i+1<<endl;
+		a[i].Xuat();
+	}
+}
+
+
+int main(){
+	int n;
+	Muontra a[100];
+	SACH sach;
+	sach.Nhap();
+	sach.Xuat();
+	NhapDS(a,n);
+	XuatDS(a,n);
+	cout<<"\nCac doc gia co so luong  muon >10 cuon:"<<endl;
+	hienthi(a,n);
+	cout<<"\nCac doc gia co so tien cuoc nhieu nhat:"<<endl;
+	kiemtra(a,n);
+}
+
+câu 16:
+	
